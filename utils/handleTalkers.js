@@ -14,6 +14,18 @@ const getAllTalkers = async () => {
     }
 };
 
+const getTalkerID = async (id) => {
+    try {
+    const response = await readFile(talkerPath);
+    const talkerID = JSON.parse(response);
+    const talkerFindID = talkerID.find((e) => e.id === Number(id));// buscando um id específico
+    return talkerFindID;
+    } catch (error) {
+        console.log('Arquivo não pode ser lido');
+    }
+};
+
 module.exports = {
     getAllTalkers,
+    getTalkerID,
 };

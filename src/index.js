@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllTalkers } = require('../utils/handleTalkers');
+const { getAllTalkers, getTalkerID } = require('../utils/handleTalkers');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +16,15 @@ app.get('/talker', async (_req, res) => {
   const talkers = await getAllTalkers();
   return res.status(200).json(talkers);
 }); 
+
+app.get('/talker/:id', async (req, res) => {
+const id = Number(req.params.id);// convertendo id para um valor numérico
+const talkerID = await getTalkerID(id);
+if (!talkerID) {
+ return res.status(404).send({ message: 'Pessoa palestrante não encontrada' });
+} 
+  return res.status(200).json(talkerID);
+});
 
 app.listen(PORT, () => {
   console.log(`Online na porta ${PORT}`);
