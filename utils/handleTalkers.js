@@ -12,7 +12,7 @@ const getAllTalkers = async () => {
         console.log('Arquivo não pode ser lido');
         return [];
     }
-}
+};
 
 module.exports = {
     getAllTalkers,
