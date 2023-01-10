@@ -25,7 +25,14 @@ const getTalkerID = async (id) => {
     }
 };
 
+/* const generateToken = () => {
+    crypto.randomBytes(8).toString('hex');
+// método crypto.randomBytes() é usado para gerar dados aleatórios criptograficamente
+// toString()método retorna uma string
+}; */
+
 module.exports = {
     getAllTalkers,
     getTalkerID,
+    
 };

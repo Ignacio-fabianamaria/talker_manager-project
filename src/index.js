@@ -1,4 +1,5 @@
 const express = require('express');
+const { randomBytes } = require('crypto');// método crypto.randomBytes() é usado para gerar dados aleatórios criptograficamente
 const { getAllTalkers, getTalkerID } = require('../utils/handleTalkers');
 
 const app = express();
@@ -26,10 +27,17 @@ if (!talkerID) {
   return res.status(200).json(talkerID);
 });
 
+app.post('/login', (_req, res) => {
+const getToken = randomBytes(8).toString('hex');
+res.status(200).json({ token: `${getToken}` }); 
+});
+
 app.listen(PORT, () => {
   console.log(`Online na porta ${PORT}`);
 });
 
 /* Recursos utilizados para o desenvolvimento do projeto:
-Mentoria Estruturada: Esquenta do projeto TalkerManager - Parte 1 (Turma 23 - Tribo A)
+- Mentoria Estruturada: Esquenta do projeto TalkerManager - Parte 1 (Turma 23 - Tribo A)
+- Método Node.js crypto.randomBytes() - https://www.geeksforgeeks.org/node-js-crypto-randombytes-method/
+- NODE.JS | MÉTODO CRYPTO.RANDOMBYTES() - https://acervolima.com/node-js-metodo-crypto-randombytes/
 */
