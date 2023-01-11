@@ -1,6 +1,6 @@
 const express = require('express');
 const { randomBytes } = require('crypto');// método crypto.randomBytes() é usado para gerar dados aleatórios criptograficamente
-const { getAllTalkers, getTalkerID } = require('../utils/handleTalkers');
+const { getAllTalkers, getTalkerID, insertLogin } = require('../utils/handleTalkers');
 
 const app = express();
 app.use(express.json());
@@ -27,7 +27,7 @@ if (!talkerID) {
   return res.status(200).json(talkerID);
 });
 
-app.post('/login', (_req, res) => {
+app.post('/login', insertLogin, async (_req, res) => {
 const getToken = randomBytes(8).toString('hex');
 res.status(200).json({ token: `${getToken}` }); 
 });
