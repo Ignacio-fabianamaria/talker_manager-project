@@ -1,9 +1,11 @@
 const express = require('express');
 const { randomBytes } = require('crypto');// método crypto.randomBytes() é usado para gerar dados aleatórios criptograficamente
-const { getAllTalkers, getTalkerID, insertLogin } = require('../utils/handleTalkers');
+const { getAllTalkers, getTalkerID,
+  insertLogin, validateName,
+  validateAuthorization } = require('../utils/handleTalkers');
 
 const app = express();
-app.use(express.json());
+app.use(express.json());// deve ser colocado antes das rotas. Analisa as solicitações para interpretat corretamente dados no corpo da reqsição
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
@@ -31,6 +33,11 @@ app.post('/login', insertLogin, async (_req, res) => {
 const getToken = randomBytes(8).toString('hex');
 res.status(200).json({ token: `${getToken}` }); 
 });
+
+app.post('/talker', validateName, validateAuthorization, async (req, res) => {
+  const newRegister = req.body;
+  res.status(201).json({ message: `${newRegister}` });
+  });
 
 app.listen(PORT, () => {
   console.log(`Online na porta ${PORT}`);
