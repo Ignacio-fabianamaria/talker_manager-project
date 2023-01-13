@@ -1,8 +1,11 @@
 const express = require('express');
 const { randomBytes } = require('crypto');// método crypto.randomBytes() é usado para gerar dados aleatórios criptograficamente
 const { getAllTalkers, getTalkerID,
-  insertLogin, validateName,
-  validateAuthorization } = require('../utils/handleTalkers');
+  validateEmail, validatePassword, validateName,
+  validateAuthorization, validateAge,
+  validateTalk,
+  validateWatchedAT,
+  validateRate } = require('../utils/validations');
 
 const app = express();
 app.use(express.json());// deve ser colocado antes das rotas. Analisa as solicitações para interpretat corretamente dados no corpo da reqsição
@@ -29,12 +32,13 @@ if (!talkerID) {
   return res.status(200).json(talkerID);
 });
 
-app.post('/login', insertLogin, async (_req, res) => {
+app.post('/login', validateEmail, validatePassword, async (_req, res) => {
 const getToken = randomBytes(8).toString('hex');
 res.status(200).json({ token: `${getToken}` }); 
 });
 
-app.post('/talker', validateName, validateAuthorization, async (req, res) => {
+app.post('/talker', validateName, validateAuthorization,
+validateAge, validateTalk, validateWatchedAT, validateRate, async (req, res) => {
   const newRegister = req.body;
   res.status(201).json({ message: `${newRegister}` });
   });
