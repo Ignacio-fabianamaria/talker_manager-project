@@ -32,8 +32,9 @@ const getTalkerID = async (id) => {
 const validateEmail = async (req, res, next) => {
     const { email } = req.body;
     
-    if (email === undefined) res.status(400).json({ message: 'O campo "email" é obrigatório' });
-
+    if (email === undefined) {
+       return res.status(400).json({ message: 'O campo "email" é obrigatório' });
+    }
     if (!REGEX_EMAIL.test(email)) {
         return res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
     }
