@@ -43,13 +43,26 @@ validateAge, validateTalk, validateWatchedAT, validateRate, async (req, res) => 
 
   const id = talkerList.length + 1;// criando um novo id
 
-  const updatedTalkerList = { id, ...newRegister };// guarda o cadastro adicionado juntamento com seu respectivo id
+  const updatedTalkerList = { id, ...newRegister };// guarda o cadastro adicionado juntamente com seu respectivo id
 
   talkerList.push(updatedTalkerList); // envia para talkersLista o novo registro
 
   await addTalkers(talkerList);
 
   res.status(201).json(updatedTalkerList);
+  });
+
+  app.put('/talker/:id', validateName, validateAuthorization,
+  validateAge, validateTalk, validateWatchedAT, validateRate, async (req, res) => {
+    const { id } = req.params; // captura o id do parametro da URL
+    const talkerEdit = req.body;// captura os dados do cadastro que foram editados do corpo da requisição
+
+    const talkerList = await getAllTalkers();
+    const toEditTalker = talkerList.findIndex((e) => e.id === Number(id));// busca o id na lista de talkers cadastrados
+    talkerList[toEditTalker] = { id: Number(id), ...talkerEdit };// edita os dados do talker  correspondente ao id buscado
+    await addTalkers(talkerList);
+
+    res.status(200).json(talkerList[toEditTalker]);
   });
 
 app.listen(PORT, () => {

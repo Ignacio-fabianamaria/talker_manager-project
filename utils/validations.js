@@ -47,7 +47,7 @@ const validatePassword = (req, res, next) => {
     if (password === undefined) {
         res.status(400).json({ message: 'O campo "password" é obrigatório' });
     }
-    
+
     if (password.length < 6) {
         return res.status(400).json({ message: 'O "password" deve ter pelo menos 6 caracteres' });
     }
@@ -109,8 +109,9 @@ const validateRate = (req, res, next) => {
     const { talk } = req.body;
     const { rate } = talk;
     
-    if (!rate) res.status(400).json({ message: 'O campo "rate" é obrigatório' });
-    
+    if (rate === undefined) {
+        return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
+    }
     if (!REGEX_RATE.test(Number(rate))) {
 return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
     }
