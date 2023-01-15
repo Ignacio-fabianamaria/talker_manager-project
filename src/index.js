@@ -6,7 +6,8 @@ const { getAllTalkers, getTalkerID, validateEmail, validatePassword,
   validateTalk, validateWatchedAT, validateRate, addTalkers } = require('../utils/validations');
 
 const app = express();
-app.use(express.json());// deve ser colocado antes das rotas. Analisa as solicitações para interpretat corretamente dados no corpo da reqsição
+app.use(express.json());
+// deve ser colocado antes das rotas. Analisa as solicitações para interpretat corretamente dados no corpo da reqsição
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
@@ -57,12 +58,22 @@ validateAge, validateTalk, validateWatchedAT, validateRate, async (req, res) => 
     const { id } = req.params; // captura o id do parametro da URL
     const talkerEdit = req.body;// captura os dados do cadastro que foram editados do corpo da requisição
 
-    const talkerList = await getAllTalkers();
+    const talkerList = await getAllTalkers();// pega todos os cadastrados
     const toEditTalker = talkerList.findIndex((e) => e.id === Number(id));// busca o id na lista de talkers cadastrados
     talkerList[toEditTalker] = { id: Number(id), ...talkerEdit };// edita os dados do talker  correspondente ao id buscado
-    await addTalkers(talkerList);
+    await addTalkers(talkerList);// adiciona as alterações realizadas
 
     res.status(200).json(talkerList[toEditTalker]);
+  });
+
+  app.delete('/talker/:id', validateAuthorization, async (req, res) => {
+    const { id } = req.params; // captura o id do parametro da URL
+    const talkerList = await getAllTalkers();// pega todos os cadastrados
+    const toDeleteTalker = talkerList.findIndex((e) => e.id === Number(id)); // busca o id na lista de talkers cadastrados
+    talkerList.splice(toDeleteTalker);// remove os dados correspondente ao id buscado
+    await addTalkers(talkerList); // adiciona as alterações realizadas
+   
+    res.status(204).end();
   });
 
 app.listen(PORT, () => {
@@ -73,4 +84,5 @@ app.listen(PORT, () => {
 - Mentoria Estruturada: Esquenta do projeto TalkerManager - Parte 1 (Turma 23 - Tribo A)
 - Método Node.js crypto.randomBytes() - https://www.geeksforgeeks.org/node-js-crypto-randombytes-method/
 - NODE.JS | MÉTODO CRYPTO.RANDOMBYTES() - https://acervolima.com/node-js-metodo-crypto-randombytes/
+- O método slice() do Array  - https://ricardo-reis.medium.com/array-slice-80ce126d9a4d
 */
