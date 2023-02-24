@@ -1,13 +1,55 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+#  Talker Manager! 
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## :memo: Descrição
+<p>Projeto Talker Manager é uma aplicação de cadastro de talkers (palestrantes) em que é possível cadastrar, visualizar, pesquisar, editar e excluir informações. Foi Implementado o conjunto de operações conhecido como CRUD.
+
+CRUD (Create, Read, Update, Delete) é um acrônimo para Create (criar), Read (ler), Update (atualizar) e Delete (deletar) que constituem a forma mais básica de manipular dados.</p>
+
+# GET `/talker`
+
+```json
+[
+  {
+    "name": "Henrique Albuquerque",
+    "age": 62,
+    "id": 1,
+    "talk": { "watchedAt": "23/10/2020", "rate": 5 }
+  },
+  {
+    "name": "Heloísa Albuquerque",
+    "age": 67,
+    "id": 2,
+    "talk": { "watchedAt": "23/10/2020", "rate": 5 }
+  },
+  {
+    "name": "Ricardo Xavier Filho",
+    "age": 33,
+    "id": 3,
+    "talk": { "watchedAt": "23/10/2020", "rate": 5 }
+  },
+  {
+    "name": "Marcos Costa",
+    "age": 24,
+    "id": 4,
+    "talk": { "watchedAt": "23/10/2020", "rate": 5 }
+  }
+]
+```
+
+## :books: Objetivos do Projeto: 
+  
+ Fixar os conceitos introdutórios sobre NODE.js.
+  
+  <b>Objetivo proposto :</b>
+  
+* Desenvolver uma API de um CRUD (Create, Read, Update e Delete) de talkers
+
+* Desenvolver alguns endpoints que irão ler e escrever em um arquivo utilizando o módulo fs.
+  
+
+## :wrench: Tecnologias utilizadas
+  
+* Docker
+  
+* NODE.js 
